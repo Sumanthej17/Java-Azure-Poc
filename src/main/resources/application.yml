@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://dtagsqlserver.database.windows.net:1433;database=dtagsqldb;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    username: tmapdtagadmin
+    password: TMAP@456
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl      
+Server:
+  port: 9191       
+  

@@ -1,5 +1,19 @@
 package com.java.azure.service;
 
-public interface JavaAzureClaimService {
+import java.util.List;
 
+import com.java.azure.dto.Claim;
+
+public interface JavaAzureClaimService {	
+	
+	public List<Claim> saveClaim(List<Claim> claimList);	
+	
+	public Claim upateClaim(Claim claim);
+	
+	public List<Claim> getClaims();
+	
+	public Claim getClaimById(String claimNumber);
+	
+	public void deleteClaimById(String claimNumber);
+	
 }
