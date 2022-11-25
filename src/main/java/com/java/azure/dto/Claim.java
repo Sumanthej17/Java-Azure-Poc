@@ -2,10 +2,12 @@ package com.java.azure.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -98,20 +100,49 @@ public class Claim implements Serializable {
 	
 	@Column(name = "submittedBy")
 	private String submittedBy;
+	
+	@OneToMany(mappedBy="claimOtherCost")
+	private List<OtherCost> otherCost;
+	
+	@OneToMany(mappedBy="claimInstalledParts")
+	private List<InstalledParts> installedParts;
+	
+	@OneToMany(mappedBy="claimRemovedParts")
+	private List<RemovedParts> removedParts;
+	
+	@OneToMany(mappedBy="claimClaimServiceInfo")
+	private List<ClaimServiceInfo> claimServiceInfo;	
+				
+	public List<ClaimServiceInfo> getClaimServiceInfo() {
+		return claimServiceInfo;
+	}
 
-	@Override
-	public String toString() {
-		return "Claim [claimNumber=" + claimNumber + ", claimType=" + claimType + ", accountName=" + accountName
-				+ ", businessUnit=" + businessUnit + ", serialNumber=" + serialNumber + ", model=" + model
-				+ ", partDescription=" + partDescription + ", part=" + part + ", hoursOnMachine=" + hoursOnMachine
-				+ ", workOrderCreationDate=" + workOrderCreationDate + ", repairDate=" + repairDate + ", purchaseDate="
-				+ purchaseDate + ", invoiceNumber=" + invoiceNumber + ", causalPartDescription=" + causalPartDescription
-				+ ", policyDetails=" + policyDetails + ", laborRate=" + laborRate + ", claimStatus=" + claimStatus
-				+ ", duplicateClaimNumber=" + duplicateClaimNumber + ", claimComments=" + claimComments
-				+ ", preAuthRequired=" + preAuthRequired + ", preAuthReason=" + preAuthReason + ", preAuthComments="
-				+ preAuthComments + ", appealReason=" + appealReason + ", appealComments=" + appealComments
-				+ ", appealCount=" + appealCount + ", campaignMember=" + campaignMember + ", submissionDate="
-				+ submissionDate + ", submittedBy=" + submittedBy + "]";
+	public void setClaimServiceInfo(List<ClaimServiceInfo> claimServiceInfo) {
+		this.claimServiceInfo = claimServiceInfo;
+	}
+
+	public List<InstalledParts> getInstalledParts() {
+		return installedParts;
+	}
+
+	public void setInstalledParts(List<InstalledParts> installedParts) {
+		this.installedParts = installedParts;
+	}
+
+	public List<RemovedParts> getRemovedParts() {
+		return removedParts;
+	}
+
+	public void setRemovedParts(List<RemovedParts> removedParts) {
+		this.removedParts = removedParts;
+	}
+
+	public List<OtherCost> getOtherCost() {
+		return otherCost;
+	}
+	
+	public void setOtherCost(List<OtherCost> otherCost) {
+		this.otherCost = otherCost;
 	}
 
 	public String getClaimNumber() {
@@ -341,6 +372,11 @@ public class Claim implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	public Claim() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Claim(String claimNumber, String claimType, String accountName, String businessUnit, String serialNumber,
 			String model, String partDescription, String part, Double hoursOnMachine, Date workOrderCreationDate,
@@ -348,7 +384,8 @@ public class Claim implements Serializable {
 			String policyDetails, Double laborRate, String claimStatus, String duplicateClaimNumber,
 			String claimComments, Boolean preAuthRequired, String preAuthReason, String preAuthComments,
 			String appealReason, String appealComments, Integer appealCount, String campaignMember, Date submissionDate,
-			String submittedBy) {
+			String submittedBy, List<OtherCost> otherCost, List<InstalledParts> installedParts,
+			List<RemovedParts> removedParts, List<ClaimServiceInfo> claimServiceInfo) {
 		super();
 		this.claimNumber = claimNumber;
 		this.claimType = claimType;
@@ -378,13 +415,27 @@ public class Claim implements Serializable {
 		this.campaignMember = campaignMember;
 		this.submissionDate = submissionDate;
 		this.submittedBy = submittedBy;
+		this.otherCost = otherCost;
+		this.installedParts = installedParts;
+		this.removedParts = removedParts;
+		this.claimServiceInfo = claimServiceInfo;
 	}
 
-	public Claim() {
-		super();
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		return "Claim [claimNumber=" + claimNumber + ", claimType=" + claimType + ", accountName=" + accountName
+				+ ", businessUnit=" + businessUnit + ", serialNumber=" + serialNumber + ", model=" + model
+				+ ", partDescription=" + partDescription + ", part=" + part + ", hoursOnMachine=" + hoursOnMachine
+				+ ", workOrderCreationDate=" + workOrderCreationDate + ", repairDate=" + repairDate + ", purchaseDate="
+				+ purchaseDate + ", invoiceNumber=" + invoiceNumber + ", causalPartDescription=" + causalPartDescription
+				+ ", policyDetails=" + policyDetails + ", laborRate=" + laborRate + ", claimStatus=" + claimStatus
+				+ ", duplicateClaimNumber=" + duplicateClaimNumber + ", claimComments=" + claimComments
+				+ ", preAuthRequired=" + preAuthRequired + ", preAuthReason=" + preAuthReason + ", preAuthComments="
+				+ preAuthComments + ", appealReason=" + appealReason + ", appealComments=" + appealComments
+				+ ", appealCount=" + appealCount + ", campaignMember=" + campaignMember + ", submissionDate="
+				+ submissionDate + ", submittedBy=" + submittedBy + ", otherCost=" + otherCost + ", installedParts="
+				+ installedParts + ", removedParts=" + removedParts + ", claimServiceInfo=" + claimServiceInfo + "]";
 	}
-	
-	
-	
+
+		
 }
