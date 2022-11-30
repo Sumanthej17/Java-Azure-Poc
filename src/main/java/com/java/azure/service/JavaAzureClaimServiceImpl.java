@@ -1,10 +1,8 @@
 package com.java.azure.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.java.azure.dto.Claim;
 import com.java.azure.repo.ClaimRepository;
 
@@ -47,7 +45,8 @@ public class JavaAzureClaimServiceImpl implements JavaAzureClaimService {
 
 	@Override
 	public Claim getClaimById(String claimNumber) {	
-		return claimRepository.findById(claimNumber).get();		
+		//return claimRepository.findById(claimNumber).get();		
+		return claimRepository.getClaimNumberDetails(claimNumber);
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package com.java.azure.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -99,49 +99,49 @@ public class Claim implements Serializable {
 	private Date submissionDate;
 	
 	@Column(name = "submittedBy")
-	private String submittedBy;
+	private String submittedBy;	
 	
 	@OneToMany(mappedBy="claimOtherCost")
-	private List<OtherCost> otherCost;
+	private Set<OtherCost> otherCost;	
 	
 	@OneToMany(mappedBy="claimInstalledParts")
-	private List<InstalledParts> installedParts;
+	private Set<InstalledParts> installedParts;	
 	
 	@OneToMany(mappedBy="claimRemovedParts")
-	private List<RemovedParts> removedParts;
+	private Set<RemovedParts> removedParts;	
 	
 	@OneToMany(mappedBy="claimClaimServiceInfo")
-	private List<ClaimServiceInfo> claimServiceInfo;	
+	private Set<ClaimServiceInfo> claimServiceInfo;	
 				
-	public List<ClaimServiceInfo> getClaimServiceInfo() {
+	public Set<ClaimServiceInfo> getClaimServiceInfo() {
 		return claimServiceInfo;
 	}
 
-	public void setClaimServiceInfo(List<ClaimServiceInfo> claimServiceInfo) {
+	public void setClaimServiceInfo(Set<ClaimServiceInfo> claimServiceInfo) {
 		this.claimServiceInfo = claimServiceInfo;
 	}
 
-	public List<InstalledParts> getInstalledParts() {
+	public Set<InstalledParts> getInstalledParts() {
 		return installedParts;
 	}
 
-	public void setInstalledParts(List<InstalledParts> installedParts) {
+	public void setInstalledParts(Set<InstalledParts> installedParts) {
 		this.installedParts = installedParts;
 	}
 
-	public List<RemovedParts> getRemovedParts() {
+	public Set<RemovedParts> getRemovedParts() {
 		return removedParts;
 	}
 
-	public void setRemovedParts(List<RemovedParts> removedParts) {
+	public void setRemovedParts(Set<RemovedParts> removedParts) {
 		this.removedParts = removedParts;
 	}
 
-	public List<OtherCost> getOtherCost() {
+	public Set<OtherCost> getOtherCost() {
 		return otherCost;
 	}
 	
-	public void setOtherCost(List<OtherCost> otherCost) {
+	public void setOtherCost(Set<OtherCost> otherCost) {
 		this.otherCost = otherCost;
 	}
 
@@ -384,8 +384,8 @@ public class Claim implements Serializable {
 			String policyDetails, Double laborRate, String claimStatus, String duplicateClaimNumber,
 			String claimComments, Boolean preAuthRequired, String preAuthReason, String preAuthComments,
 			String appealReason, String appealComments, Integer appealCount, String campaignMember, Date submissionDate,
-			String submittedBy, List<OtherCost> otherCost, List<InstalledParts> installedParts,
-			List<RemovedParts> removedParts, List<ClaimServiceInfo> claimServiceInfo) {
+			String submittedBy, Set<OtherCost> otherCost, Set<InstalledParts> installedParts,
+			Set<RemovedParts> removedParts, Set<ClaimServiceInfo> claimServiceInfo) {
 		super();
 		this.claimNumber = claimNumber;
 		this.claimType = claimType;
