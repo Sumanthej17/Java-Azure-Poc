@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "TMAP_TWOD_DTAG_CLAIM_SERVICE_INFO_DATA")
 public class ClaimServiceInfo implements Serializable {		
@@ -42,10 +44,18 @@ public class ClaimServiceInfo implements Serializable {
 	@Column(name="comments")
 	private String comments;
 	
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name="claimNumber", nullable=false)
-	private Claim claimClaimServiceInfo;	
-	
+	@JsonIgnore
+	private Claim claimClaimServiceInfo;		
+
+	public Claim getClaimClaimServiceInfo() {
+		return claimClaimServiceInfo;
+	}
+
+	public void setClaimClaimServiceInfo(Claim claimClaimServiceInfo) {
+		this.claimClaimServiceInfo = claimClaimServiceInfo;
+	}
 
 	public String getJobId() {
 		return jobId;

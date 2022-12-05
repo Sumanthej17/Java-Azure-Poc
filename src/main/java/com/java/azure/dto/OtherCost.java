@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "TMAP_TWOD_DTAG_OTHER_COST_DATA")
 public class OtherCost implements Serializable {		
@@ -33,10 +35,18 @@ public class OtherCost implements Serializable {
 	@Column(name="comments")
 	private String comments;
 	
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name="claimNumber", nullable=false)
-	private Claim claimOtherCost;
-	
+	@JsonIgnore
+	private Claim claimOtherCost;	
+
+	public Claim getClaimOtherCost() {
+		return claimOtherCost;
+	}
+
+	public void setClaimOtherCost(Claim claimOtherCost) {
+		this.claimOtherCost = claimOtherCost;
+	}
 
 	public String getCostId() {
 		return costId;

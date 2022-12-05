@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "TMAP_TWOD_DTAG_REMOVED_PARTS_DATA")
 public class RemovedParts implements Serializable {		
@@ -24,9 +26,18 @@ public class RemovedParts implements Serializable {
 	@Column(name="partId")
 	private String partId;	
 	
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name="claimNumber", nullable=false)
-	private Claim claimRemovedParts;
+	@JsonIgnore
+	private Claim claimRemovedParts;	
+
+	public Claim getClaimRemovedParts() {
+		return claimRemovedParts;
+	}
+
+	public void setClaimRemovedParts(Claim claimRemovedParts) {
+		this.claimRemovedParts = claimRemovedParts;
+	}
 
 	@Column(name="partDescription")
 	private String partDescription;

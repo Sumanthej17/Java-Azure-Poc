@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -101,16 +102,17 @@ public class Claim implements Serializable {
 	@Column(name = "submittedBy")
 	private String submittedBy;	
 	
-	@OneToMany(mappedBy="claimOtherCost")
+	@OneToMany(mappedBy="claimOtherCost", cascade = CascadeType.ALL)
 	private Set<OtherCost> otherCost;	
 	
-	@OneToMany(mappedBy="claimInstalledParts")
+	@OneToMany(mappedBy="claimInstalledParts", cascade = CascadeType.ALL)
 	private Set<InstalledParts> installedParts;	
 	
-	@OneToMany(mappedBy="claimRemovedParts")
+	@OneToMany(mappedBy="claimRemovedParts", cascade = CascadeType.ALL)
 	private Set<RemovedParts> removedParts;	
 	
-	@OneToMany(mappedBy="claimClaimServiceInfo")
+	@OneToMany(mappedBy="claimClaimServiceInfo", cascade = CascadeType.ALL)
+	//@OneToMany(mappedBy="claimClaimServiceInfo")
 	private Set<ClaimServiceInfo> claimServiceInfo;	
 				
 	public Set<ClaimServiceInfo> getClaimServiceInfo() {
@@ -119,6 +121,7 @@ public class Claim implements Serializable {
 
 	public void setClaimServiceInfo(Set<ClaimServiceInfo> claimServiceInfo) {
 		this.claimServiceInfo = claimServiceInfo;
+		this.claimServiceInfo.forEach(claimSerInfo -> claimSerInfo.setClaimClaimServiceInfo(this));
 	}
 
 	public Set<InstalledParts> getInstalledParts() {
@@ -127,6 +130,7 @@ public class Claim implements Serializable {
 
 	public void setInstalledParts(Set<InstalledParts> installedParts) {
 		this.installedParts = installedParts;
+		this.installedParts.forEach(installedPart -> installedPart.setClaimInstalledParts(this));
 	}
 
 	public Set<RemovedParts> getRemovedParts() {
@@ -135,6 +139,7 @@ public class Claim implements Serializable {
 
 	public void setRemovedParts(Set<RemovedParts> removedParts) {
 		this.removedParts = removedParts;
+		this.removedParts.forEach(removedPart -> removedPart.setClaimRemovedParts(this));
 	}
 
 	public Set<OtherCost> getOtherCost() {
@@ -143,6 +148,7 @@ public class Claim implements Serializable {
 	
 	public void setOtherCost(Set<OtherCost> otherCost) {
 		this.otherCost = otherCost;
+		this.otherCost.forEach(oC -> oC.setClaimOtherCost(this));
 	}
 
 	public String getClaimNumber() {

@@ -6,5 +6,6 @@ import com.java.azure.dto.RemovedParts;
 
 public interface RemovedPartsRepository extends JpaRepository<RemovedParts, String> {	
 	
+	public RemovedParts findTop1ByOrderByPartIdDesc();	
 
 }

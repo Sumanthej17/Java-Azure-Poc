@@ -6,5 +6,8 @@ import com.java.azure.dto.OtherCost;
 
 public interface OtherCostRepository extends JpaRepository<OtherCost, String> {	
 	
+	public OtherCost findTop1ByOrderByCostIdDesc();	
+
+	
 
 }

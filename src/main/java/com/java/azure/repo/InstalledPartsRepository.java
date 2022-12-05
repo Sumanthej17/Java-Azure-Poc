@@ -6,5 +6,6 @@ import com.java.azure.dto.InstalledParts;
 
 public interface InstalledPartsRepository extends JpaRepository<InstalledParts, String> {	
 	
+	public InstalledParts findTop1ByOrderByPartIdDesc();	
 
 }

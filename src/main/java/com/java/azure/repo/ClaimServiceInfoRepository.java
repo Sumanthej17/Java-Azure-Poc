@@ -6,5 +6,7 @@ import com.java.azure.dto.ClaimServiceInfo;
 
 public interface ClaimServiceInfoRepository extends JpaRepository<ClaimServiceInfo, String> {	
 	
+	public ClaimServiceInfo findTop1ByOrderByJobIdDesc();
+	
 
 }
