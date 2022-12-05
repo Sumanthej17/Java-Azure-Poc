@@ -94,7 +94,7 @@ public class JavaAzureClaimServiceImpl implements JavaAzureClaimService {
 			}
 			
 			if(CollectionUtils.isEmpty(claim.getOtherCost())==false) {			
-				Long costId = getRemovedPartsPartId();
+				Long costId = getCostId();
 				
 				Iterator<OtherCost> otherCostIterator = claim.getOtherCost().iterator();	
 				
