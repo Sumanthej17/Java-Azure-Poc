@@ -9,5 +9,13 @@ spring:
       ddl-auto: update
       naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl      
 Server:
-  port: 9191       
-  
+  port: 9191
+         
+logging:
+  file: 
+    name: JavaAzureApplication_file.log
+#  pattern:
+#    console: date{ISO8601} %-5level %class{0}.%L - [%X] %msg%n
+#  level: 
+#    com.java.azure.controller: DEBUG  
+    

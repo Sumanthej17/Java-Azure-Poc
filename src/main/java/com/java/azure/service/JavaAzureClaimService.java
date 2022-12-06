@@ -14,6 +14,6 @@ public interface JavaAzureClaimService {
 	
 	public Claim getClaimById(String claimNumber);
 	
-	public void deleteClaimById(String claimNumber);
+	public String deleteClaimById(String claimNumber);
 	
 }

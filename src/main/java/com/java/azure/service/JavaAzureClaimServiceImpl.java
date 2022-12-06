@@ -3,6 +3,8 @@ package com.java.azure.service;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -19,7 +21,9 @@ import com.java.azure.repo.OtherCostRepository;
 import com.java.azure.repo.RemovedPartsRepository;
 
 @Service
-public class JavaAzureClaimServiceImpl implements JavaAzureClaimService {	
+public class JavaAzureClaimServiceImpl implements JavaAzureClaimService {
+	
+	Logger logger = LoggerFactory.getLogger(JavaAzureClaimServiceImpl.class);
 	
 	public static final Long DEFAULT_CLAIM_NUMBER=(long) 68787000;
 	
@@ -45,71 +49,66 @@ public class JavaAzureClaimServiceImpl implements JavaAzureClaimService {
 	OtherCostRepository otherCostRepository;
 
 	@Override
-	public List<Claim> saveClaim(List<Claim> claimList) {		
+	public List<Claim> saveClaim(List<Claim> claimList) {	
+		
+		logger.info("[saveClaim] - to add the Claim data is started");		
+		
 		Long claimNumber = getClaimNumber();
 		
 		for(Claim claim:claimList) {
 			claim.setClaimNumber(Long.valueOf(claimNumber).toString());				
 			
-			if(CollectionUtils.isEmpty(claim.getClaimServiceInfo())==false) {			
-				Long jobId = getJobId();
-				
-				Iterator<ClaimServiceInfo> claimServiceInfoIterator = claim.getClaimServiceInfo().iterator();	
-				
+			if(CollectionUtils.isEmpty(claim.getClaimServiceInfo())==false) {				
+				logger.info("Adding the ClaimServiceInfo data");			
+				Long jobId = getJobId();				
+				Iterator<ClaimServiceInfo> claimServiceInfoIterator = claim.getClaimServiceInfo().iterator();					
 				while(claimServiceInfoIterator.hasNext()) {					
 					ClaimServiceInfo claimServiceInfo = claimServiceInfoIterator.next();
 					claimServiceInfo.setJobId(Long.valueOf(jobId).toString());					
-					claimServiceInfo.setClaimClaimServiceInfo(claim);
-					
+					claimServiceInfo.setClaimClaimServiceInfo(claim);					
 					jobId++;
-				}					
+				}
 			}
 			
-			if(CollectionUtils.isEmpty(claim.getInstalledParts())==false) {			
-				Long partId = getInstalledPartsPartId();
-				
-				Iterator<InstalledParts> installedPartsIterator = claim.getInstalledParts().iterator();	
-				
+			if(CollectionUtils.isEmpty(claim.getInstalledParts())==false) {					
+				logger.info("Adding the InstalledParts data");
+				Long partId = getInstalledPartsPartId();				
+				Iterator<InstalledParts> installedPartsIterator = claim.getInstalledParts().iterator();					
 				while(installedPartsIterator.hasNext()) {					
 					InstalledParts installedParts = installedPartsIterator.next();
 					installedParts.setPartId(Long.valueOf(partId).toString());					
-					installedParts.setClaimInstalledParts(claim);
-					
+					installedParts.setClaimInstalledParts(claim);					
 					partId++;
-				}					
+				}
 			}
 			
-			if(CollectionUtils.isEmpty(claim.getRemovedParts())==false) {			
-				Long partId = getRemovedPartsPartId();
-				
-				Iterator<RemovedParts> removedPartsIterator = claim.getRemovedParts().iterator();	
-				
+			if(CollectionUtils.isEmpty(claim.getRemovedParts())==false) {					
+				logger.info("Adding the RemovedParts data");
+				Long partId = getRemovedPartsPartId();				
+				Iterator<RemovedParts> removedPartsIterator = claim.getRemovedParts().iterator();				
 				while(removedPartsIterator.hasNext()) {					
 					RemovedParts removedParts = removedPartsIterator.next();
 					removedParts.setPartId(Long.valueOf(partId).toString());					
-					removedParts.setClaimRemovedParts(claim);
-					
+					removedParts.setClaimRemovedParts(claim);					
 					partId++;
-				}					
+				}
 			}
 			
-			if(CollectionUtils.isEmpty(claim.getOtherCost())==false) {			
-				Long costId = getCostId();
-				
-				Iterator<OtherCost> otherCostIterator = claim.getOtherCost().iterator();	
-				
+			if(CollectionUtils.isEmpty(claim.getOtherCost())==false) {
+				logger.info("Adding the OtherCost data");
+				Long costId = getCostId();				
+				Iterator<OtherCost> otherCostIterator = claim.getOtherCost().iterator();				
 				while(otherCostIterator.hasNext()) {					
 					OtherCost otherCost = otherCostIterator.next();
 					otherCost.setCostId(Long.valueOf(costId).toString());					
-					otherCost.setClaimOtherCost(claim);
-					
+					otherCost.setClaimOtherCost(claim);					
 					costId++;
-				}					
-			}
-			
+				}
+			}			
 			claimNumber++;
 		}		
-		claimRepository.saveAll(claimList);
+		claimRepository.saveAll(claimList);		
+		logger.info("[saveClaim] - to add the Claim data is completed");
 		return claimList;
 	}	
 
@@ -158,28 +157,35 @@ public class JavaAzureClaimServiceImpl implements JavaAzureClaimService {
 
 	@Override
 	public List<Claim> getClaims() {
+		logger.info("[getClaims] - returning all claims data details");
 		return null;
 	}
 	
 	@Override
 	public Claim upateClaim(Claim claim) {
+		logger.info("[upateClaim] - upading the Claim data for claim id: "+claim.getClaimNumber());
 		return claimRepository.save(claim);
 	}
 
 	@Override
 	public Claim getClaimById(String claimNumber) {	
+		logger.info("[getClaimById] - finding the Claim data for claim id: "+claimNumber);	
 		//return claimRepository.findById(claimNumber).get();		
 		return claimRepository.getClaimNumberDetails(claimNumber);
 	}
 
 	@Override
-	public void deleteClaimById(String claimNumber) {
-		//try {
+	public String deleteClaimById(String claimNumber) {
+		logger.info("[deleteClaimById] - deleting the Claim data for claim id: "+claimNumber);	
+		try {
 		claimRepository.deleteById(claimNumber);
-//		}
-//		catch(Exception e) {
-//			throw new Exception("claim is not exist/found in the DB for the claimNumber :"+claimNumber);
-//		}
+		return "successfully claim data is deleted for claimNumber : "+claimNumber;
+		}
+		catch(Exception e) {
+			logger.error("Deletion Exception : "+e);	
+			//throw new Exception("claim is not exist/found in the DB for the claimNumber :"+claimNumber);
+			return "claim is not exist/found in the DB for the claimNumber :"+claimNumber;
+		}
 	}	
 	
 }
