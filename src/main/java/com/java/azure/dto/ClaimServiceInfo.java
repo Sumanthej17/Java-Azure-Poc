@@ -5,10 +5,13 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,8 +26,10 @@ public class ClaimServiceInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GenericGenerator(name="claimServiceTable" , strategy="increment")
+	@GeneratedValue(generator="claimServiceTable")	
 	@Column(name="jobId")
-	private String jobId;	
+	private Integer jobId;	
 	
 	@Column(name="jobCode")
 	private String jobCode;
@@ -45,7 +50,8 @@ public class ClaimServiceInfo implements Serializable {
 	private String comments;
 	
 	@ManyToOne(optional = false)
-	@JoinColumn(name="claimNumber", nullable=false)
+	//@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name="claimId", nullable=false)
 	@JsonIgnore
 	private Claim claimClaimServiceInfo;		
 
@@ -57,11 +63,11 @@ public class ClaimServiceInfo implements Serializable {
 		this.claimClaimServiceInfo = claimClaimServiceInfo;
 	}
 
-	public String getJobId() {
+	public Integer getJobId() {
 		return jobId;
 	}
 
-	public void setJobId(String jobId) {
+	public void setJobId(Integer jobId) {
 		this.jobId = jobId;
 	}
 
@@ -122,7 +128,7 @@ public class ClaimServiceInfo implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ClaimServiceInfo(String jobId, String jobCode, BigDecimal standardLaborHour, String jobDescription,
+	public ClaimServiceInfo(Integer jobId, String jobCode, BigDecimal standardLaborHour, String jobDescription,
 			BigDecimal totalLaborHour, BigDecimal laborRate, String comments, Claim claimClaimServiceInfo) {
 		super();
 		this.jobId = jobId;

@@ -5,10 +5,13 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,10 +23,12 @@ public class InstalledParts implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
+	@GenericGenerator(name="installedPartsTable" , strategy="increment")
+	@GeneratedValue(generator="installedPartsTable")
 	@Column(name="partId")
-	private String partId;
+	private Integer partId;
 
 	@Column(name="partDescription")
 	private String partDescription;
@@ -41,7 +46,7 @@ public class InstalledParts implements Serializable {
 	private String partNumber;	
 	
 	@ManyToOne(optional = false)
-	@JoinColumn(name="claimNumber", nullable=false)
+	@JoinColumn(name="claimId", nullable=false)
 	@JsonIgnore
 	private Claim claimInstalledParts;	
 	
@@ -53,11 +58,11 @@ public class InstalledParts implements Serializable {
 		this.claimInstalledParts = claimInstalledParts;
 	}
 
-	public String getPartId() {
+	public Integer getPartId() {
 		return partId;
 	}
 
-	public void setPartId(String partId) {
+	public void setPartId(Integer partId) {
 		this.partId = partId;
 	}
 
@@ -110,7 +115,7 @@ public class InstalledParts implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public InstalledParts(String partId, String partDescription, BigDecimal quantity, BigDecimal perUnitPrice,
+	public InstalledParts(Integer partId, String partDescription, BigDecimal quantity, BigDecimal perUnitPrice,
 			String uOM, String partNumber) {
 		super();
 		this.partId = partId;

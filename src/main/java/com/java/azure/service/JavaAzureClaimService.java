@@ -10,10 +10,10 @@ public interface JavaAzureClaimService {
 	
 	public Claim upateClaim(Claim claim);
 	
-	public List<Claim> getClaims();
-	
+//	public List<Claim> getClaims();
+
 	public Claim getClaimById(String claimNumber);
 	
-	public String deleteClaimById(String claimNumber);
+	public String deleteClaimByNumber(String claimNumber);
 	
 }

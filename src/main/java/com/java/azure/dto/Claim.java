@@ -7,9 +7,12 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "TMAP_TWOD_DTAG_CLAIMS_DATA")
@@ -17,7 +20,12 @@ public class Claim implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id 	
+	@Id
+	@GenericGenerator(name="claimTable" , strategy="increment")
+	@GeneratedValue(generator="claimTable")
+	@Column(name = "claimId")
+	private Integer claimId;
+	
 	@Column(name = "claimNumber")
 	private String claimNumber;
 	
@@ -102,17 +110,18 @@ public class Claim implements Serializable {
 	@Column(name = "submittedBy")
 	private String submittedBy;	
 	
-	@OneToMany(mappedBy="claimOtherCost", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="claimOtherCost", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<OtherCost> otherCost;	
 	
-	@OneToMany(mappedBy="claimInstalledParts", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="claimInstalledParts", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<InstalledParts> installedParts;	
 	
-	@OneToMany(mappedBy="claimRemovedParts", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="claimRemovedParts", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<RemovedParts> removedParts;	
 	
-	@OneToMany(mappedBy="claimClaimServiceInfo", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="claimClaimServiceInfo", cascade = CascadeType.ALL, orphanRemoval = true)
 	//@OneToMany(mappedBy="claimClaimServiceInfo")
+	//@JsonIgnore
 	private Set<ClaimServiceInfo> claimServiceInfo;	
 				
 	public Set<ClaimServiceInfo> getClaimServiceInfo() {
@@ -150,9 +159,17 @@ public class Claim implements Serializable {
 		this.otherCost = otherCost;
 		this.otherCost.forEach(oC -> oC.setClaimOtherCost(this));
 	}
-
+	
 	public String getClaimNumber() {
 		return claimNumber;
+	}
+
+	public Integer getClaimId() {
+		return claimId;
+	}
+
+	public void setClaimId(Integer claimId) {
+		this.claimId = claimId;
 	}
 
 	public void setClaimNumber(String claimNumber) {
@@ -384,15 +401,17 @@ public class Claim implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Claim(String claimNumber, String claimType, String accountName, String businessUnit, String serialNumber,
+	public Claim(Integer claimId,String claimNumber, String claimType, String accountName, String businessUnit, String serialNumber,
 			String model, String partDescription, String part, Double hoursOnMachine, Date workOrderCreationDate,
 			Date repairDate, Date purchaseDate, String invoiceNumber, String causalPartDescription,
 			String policyDetails, Double laborRate, String claimStatus, String duplicateClaimNumber,
 			String claimComments, Boolean preAuthRequired, String preAuthReason, String preAuthComments,
 			String appealReason, String appealComments, Integer appealCount, String campaignMember, Date submissionDate,
 			String submittedBy, Set<OtherCost> otherCost, Set<InstalledParts> installedParts,
-			Set<RemovedParts> removedParts, Set<ClaimServiceInfo> claimServiceInfo) {
+			Set<RemovedParts> removedParts, Set<ClaimServiceInfo> claimServiceInfo
+			) {
 		super();
+		this.claimId = claimId;
 		this.claimNumber = claimNumber;
 		this.claimType = claimType;
 		this.accountName = accountName;
@@ -429,7 +448,7 @@ public class Claim implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Claim [claimNumber=" + claimNumber + ", claimType=" + claimType + ", accountName=" + accountName
+		return "Claim [claimId=" + claimId + ", claimNumber=" + claimNumber + ", claimType=" + claimType + ", accountName=" + accountName
 				+ ", businessUnit=" + businessUnit + ", serialNumber=" + serialNumber + ", model=" + model
 				+ ", partDescription=" + partDescription + ", part=" + part + ", hoursOnMachine=" + hoursOnMachine
 				+ ", workOrderCreationDate=" + workOrderCreationDate + ", repairDate=" + repairDate + ", purchaseDate="
@@ -439,8 +458,7 @@ public class Claim implements Serializable {
 				+ ", preAuthRequired=" + preAuthRequired + ", preAuthReason=" + preAuthReason + ", preAuthComments="
 				+ preAuthComments + ", appealReason=" + appealReason + ", appealComments=" + appealComments
 				+ ", appealCount=" + appealCount + ", campaignMember=" + campaignMember + ", submissionDate="
-				+ submissionDate + ", submittedBy=" + submittedBy + ", otherCost=" + otherCost + ", installedParts="
-				+ installedParts + ", removedParts=" + removedParts + ", claimServiceInfo=" + claimServiceInfo + "]";
+				+ submissionDate + ", submittedBy=" + submittedBy + ", claimServiceInfo=" + claimServiceInfo + ", otherCost=" + otherCost + ", installedParts="	+ installedParts + ", removedParts=" + removedParts + "]";
 	}
 
 		

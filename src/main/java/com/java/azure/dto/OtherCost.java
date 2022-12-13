@@ -5,10 +5,13 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,8 +26,10 @@ public class OtherCost implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GenericGenerator(name="otherCostTable" , strategy="increment")
+	@GeneratedValue(generator="otherCostTable")
 	@Column(name="costId")
-	private String costId;	
+	private Integer costId;	
 	
 	@Column(name="costCategoryType")
 	private String costCategoryType;
@@ -36,7 +41,7 @@ public class OtherCost implements Serializable {
 	private String comments;
 	
 	@ManyToOne(optional = false)
-	@JoinColumn(name="claimNumber", nullable=false)
+	@JoinColumn(name="claimId", nullable=false)
 	@JsonIgnore
 	private Claim claimOtherCost;	
 
@@ -48,11 +53,11 @@ public class OtherCost implements Serializable {
 		this.claimOtherCost = claimOtherCost;
 	}
 
-	public String getCostId() {
+	public Integer getCostId() {
 		return costId;
 	}
 
-	public void setCostId(String costId) {
+	public void setCostId(Integer costId) {
 		this.costId = costId;
 	}
 

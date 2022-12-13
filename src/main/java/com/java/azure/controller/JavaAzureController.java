@@ -53,10 +53,10 @@ public class JavaAzureController {
 	}
 	
 	@DeleteMapping("/deleteClaim/{claimNumber}")  
-	private String deleteClaimById(@PathVariable String claimNumber)   
+	private String deleteClaimByClaimNumber(@PathVariable String claimNumber)   
 	{  
 		logger.info("[deleteClaimById] rest api - triggered");
-		return javaAzureClaimService.deleteClaimById(claimNumber);  
+		return javaAzureClaimService.deleteClaimByNumber(claimNumber);  
 	}  	
 	
 	@GetMapping("/getClaims")

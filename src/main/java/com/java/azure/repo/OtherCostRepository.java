@@ -4,10 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.java.azure.dto.OtherCost;
 
-public interface OtherCostRepository extends JpaRepository<OtherCost, String> {	
-	
-	public OtherCost findTop1ByOrderByCostIdDesc();	
-
-	
+public interface OtherCostRepository extends JpaRepository<OtherCost, Integer> {	
 
 }

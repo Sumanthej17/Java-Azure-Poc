@@ -5,10 +5,13 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,11 +26,13 @@ public class RemovedParts implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GenericGenerator(name="removedPartsTable" , strategy="increment")
+	@GeneratedValue(generator="removedPartsTable")
 	@Column(name="partId")
-	private String partId;	
+	private Integer partId;	
 	
 	@ManyToOne(optional = false)
-	@JoinColumn(name="claimNumber", nullable=false)
+	@JoinColumn(name="claimId", nullable=false)
 	@JsonIgnore
 	private Claim claimRemovedParts;	
 
@@ -54,11 +59,11 @@ public class RemovedParts implements Serializable {
 	@Column(name="partNumber")
 	private String partNumber;
 
-	public String getPartId() {
+	public Integer getPartId() {
 		return partId;
 	}
 
-	public void setPartId(String partId) {
+	public void setPartId(Integer partId) {
 		this.partId = partId;
 	}
 	
@@ -107,7 +112,7 @@ public class RemovedParts implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RemovedParts(String partId, Claim claimRemovedParts, String partDescription, BigDecimal quantity,
+	public RemovedParts(Integer partId, Claim claimRemovedParts, String partDescription, BigDecimal quantity,
 			BigDecimal perUnitPrice, String uOM, String partNumber) {
 		super();
 		this.partId = partId;

@@ -1,13 +1,22 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://dtagsqlserver.database.windows.net:1433;database=dtagsqldb;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
-    username: tmapdtagadmin
-    password: TMAP@456
+#    url: jdbc:sqlserver://dtagsqlserver.database.windows.net:1433;database=dtagsqldb;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+#    username: tmapdtagadmin
+#    password: TMAP@456
+    url: jdbc:postgresql://dtag-psql-twod-euw.postgres.database.azure.com:5432/dtagsqldb?user=dtagpostgreadmin@dtag-psql-twod-euw&password=dtag@123&sslmode=require
+#    username: tmapdtagadmin
+#    password: TMAP@456
   jpa:
+#    properties:
+#      hibernate:
+#        jdbc:
+#          batch_size=50
     show-sql: true
     hibernate:
       ddl-auto: update
-      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl      
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl    
+#  jackson:
+#    default-property-inclusion: NON_NULL      
 Server:
   port: 9191
          
