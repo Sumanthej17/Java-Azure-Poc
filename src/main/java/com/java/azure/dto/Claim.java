@@ -2,7 +2,6 @@ package com.java.azure.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -460,50 +459,6 @@ public class Claim implements Serializable {
 				+ preAuthComments + ", appealReason=" + appealReason + ", appealComments=" + appealComments
 				+ ", appealCount=" + appealCount + ", campaignMember=" + campaignMember + ", submissionDate="
 				+ submissionDate + ", submittedBy=" + submittedBy + ", claimServiceInfo=" + claimServiceInfo + ", otherCost=" + otherCost + ", installedParts="	+ installedParts + ", removedParts=" + removedParts + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(accountName, appealComments, appealCount, appealReason, businessUnit, campaignMember,
-				causalPartDescription, claimComments, claimId, claimNumber, claimServiceInfo, claimStatus, claimType,
-				duplicateClaimNumber, hoursOnMachine, installedParts, invoiceNumber, laborRate, model, otherCost, part,
-				partDescription, policyDetails, preAuthComments, preAuthReason, preAuthRequired, purchaseDate,
-				removedParts, repairDate, serialNumber, submissionDate, submittedBy, workOrderCreationDate);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Claim other = (Claim) obj;
-		return Objects.equals(accountName, other.accountName) && Objects.equals(appealComments, other.appealComments)
-				&& Objects.equals(appealCount, other.appealCount) && Objects.equals(appealReason, other.appealReason)
-				&& Objects.equals(businessUnit, other.businessUnit)
-				&& Objects.equals(campaignMember, other.campaignMember)
-				&& Objects.equals(causalPartDescription, other.causalPartDescription)
-				&& Objects.equals(claimComments, other.claimComments) && Objects.equals(claimId, other.claimId)
-				&& Objects.equals(claimNumber, other.claimNumber)
-				&& Objects.equals(claimServiceInfo, other.claimServiceInfo)
-				&& Objects.equals(claimStatus, other.claimStatus) && Objects.equals(claimType, other.claimType)
-				&& Objects.equals(duplicateClaimNumber, other.duplicateClaimNumber)
-				&& Objects.equals(hoursOnMachine, other.hoursOnMachine)
-				&& Objects.equals(installedParts, other.installedParts)
-				&& Objects.equals(invoiceNumber, other.invoiceNumber) && Objects.equals(laborRate, other.laborRate)
-				&& Objects.equals(model, other.model) && Objects.equals(otherCost, other.otherCost)
-				&& Objects.equals(part, other.part) && Objects.equals(partDescription, other.partDescription)
-				&& Objects.equals(policyDetails, other.policyDetails)
-				&& Objects.equals(preAuthComments, other.preAuthComments)
-				&& Objects.equals(preAuthReason, other.preAuthReason)
-				&& Objects.equals(preAuthRequired, other.preAuthRequired)
-				&& Objects.equals(purchaseDate, other.purchaseDate) && Objects.equals(removedParts, other.removedParts)
-				&& Objects.equals(repairDate, other.repairDate) && Objects.equals(serialNumber, other.serialNumber)
-				&& Objects.equals(submissionDate, other.submissionDate)
-				&& Objects.equals(submittedBy, other.submittedBy)
-				&& Objects.equals(workOrderCreationDate, other.workOrderCreationDate);
 	}
 
 		
