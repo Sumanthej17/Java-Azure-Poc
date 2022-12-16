@@ -27,7 +27,7 @@ public class JavaAzureController {
 	@GetMapping("/")
 	public String message() {		
 		logger.info("[message] Home Page message");		
-		return "Hello Azure POC";
+		return "Welcome Azure Java POC";
 	}
 	
 	@PostMapping("/addClaim")

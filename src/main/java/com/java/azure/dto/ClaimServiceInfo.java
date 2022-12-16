@@ -2,6 +2,7 @@ package com.java.azure.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -147,5 +148,29 @@ public class ClaimServiceInfo implements Serializable {
 				+ ", jobDescription=" + jobDescription + ", totalLaborHour=" + totalLaborHour + ", laborRate="
 				+ laborRate + ", comments=" + comments + ", claimClaimServiceInfo=" + claimClaimServiceInfo + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(claimClaimServiceInfo, comments, jobCode, jobDescription, jobId, laborRate,
+				standardLaborHour, totalLaborHour);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ClaimServiceInfo other = (ClaimServiceInfo) obj;
+		return Objects.equals(claimClaimServiceInfo, other.claimClaimServiceInfo)
+				&& Objects.equals(comments, other.comments) && Objects.equals(jobCode, other.jobCode)
+				&& Objects.equals(jobDescription, other.jobDescription) && Objects.equals(jobId, other.jobId)
+				&& Objects.equals(laborRate, other.laborRate)
+				&& Objects.equals(standardLaborHour, other.standardLaborHour)
+				&& Objects.equals(totalLaborHour, other.totalLaborHour);
+	}	
+	
 		
 }

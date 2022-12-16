@@ -2,6 +2,7 @@ package com.java.azure.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -130,6 +131,25 @@ public class RemovedParts implements Serializable {
 				+ ", quantity=" + quantity + ", perUnitPrice=" + perUnitPrice + ", uOM=" + uOM + ", partNumber="
 				+ partNumber + "]";
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(claimRemovedParts, partDescription, partId, partNumber, perUnitPrice, quantity, uOM);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RemovedParts other = (RemovedParts) obj;
+		return Objects.equals(claimRemovedParts, other.claimRemovedParts)
+				&& Objects.equals(partDescription, other.partDescription) && Objects.equals(partId, other.partId)
+				&& Objects.equals(partNumber, other.partNumber) && Objects.equals(perUnitPrice, other.perUnitPrice)
+				&& Objects.equals(quantity, other.quantity) && Objects.equals(uOM, other.uOM);
+	}	
 
 }
